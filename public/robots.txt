@@ -1,0 +1,63 @@
+User-agent: *
+Allow: /
+
+# Important pages for crawling
+Allow: /services
+Allow: /about
+Allow: /contact
+Allow: /quote
+
+# Service area pages
+Allow: /service-areas/
+Allow: /services/
+
+# Block admin and customer portal areas from search engines
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /customer-portal
+Disallow: /crm
+
+# Block temporary files
+Disallow: /tmp/
+Disallow: /*.tmp
+Disallow: /cache/
+
+# Block sensitive files
+Disallow: /config/
+Disallow: /.env
+Disallow: /api/admin/
+
+# Allow important static assets
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /fonts/
+
+# Sitemap location
+Sitemap: https://same-ybnqabs99nd-latest.netlify.app/sitemap.xml
+
+# Crawl delay (be respectful to server)
+Crawl-delay: 1
+
+# Specific rules for different bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /

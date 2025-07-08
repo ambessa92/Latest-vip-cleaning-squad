@@ -1,0 +1,1285 @@
+// ... existing code ... <imports and initial interfaces>
+
+// Order data interface for email notifications
+interface OrderData {
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+// PayPal Order Actions Interface
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+interface PayPalOrderActions {
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+  order: {
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+    capture: () => Promise<PayPalOrderResponse>;
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+  };
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+}
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+  id?: string;
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+  orderID: string;
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+  subscriptionID?: string;
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+  amount?: {
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+    value: string;
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+    currency_code: string;
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+  };
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+  status?: string;
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+}
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+
+// PayPal Order Actions Interface
+interface PayPalOrderActions {
+  order: {
+    create: (orderData: PayPalOrderRequest) => Promise<string>;
+    capture: () => Promise<PayPalOrderResponse>;
+  };
+}
+
+// PayPal Order Request Interface
+interface PayPalOrderRequest {
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+      breakdown?: {
+        item_total: {
+          currency_code: string;
+          value: string;
+        };
+        tax_total?: {
+          currency_code: string;
+          value: string;
+        };
+      };
+    };
+    description?: string;
+    custom_id?: string;
+    invoice_id?: string;
+    items?: Array<{
+      name: string;
+      description: string;
+      quantity: string;
+      unit_amount: {
+        currency_code: string;
+        value: string;
+      };
+      tax?: {
+        currency_code: string;
+        value: string;
+      };
+      category: string;
+    }>;
+  }>;
+  application_context?: {
+    brand_name: string;
+    landing_page: string;
+    shipping_preference: string;
+    user_action: string;
+  };
+}
+
+// PayPal Order Response Interface
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+
+declare global {
+  interface Window {
+    paypal?: {
+      Buttons: (options: Record<string, unknown>) => {
+        render: (selector: string) => Promise<void>;
+      };
+    };
+  }
+}
+
+// ... existing code ... <everything else remains the same up to the PayPal button initialization>

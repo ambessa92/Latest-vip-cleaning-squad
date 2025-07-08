@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIP Cleaning Squad - Get Your Quote</title>
+  <meta name="description" content="Professional cleaning services - Get instant quotes on mobile">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #dcfce7 100%);
+      min-height: 100vh;
+      touch-action: manipulation;
+    }
+
+    .mobile-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .service-selection {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1f2937;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .service-cards {
+      display: grid;
+      gap: 15px;
+    }
+
+    .service-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 3px solid transparent;
+      position: relative;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    .service-card:active {
+      transform: scale(0.98);
+    }
+
+    .service-card.selected {
+      border-color: #10b981;
+      background: #f0fdf4;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .service-icon {
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .service-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1f2937;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .service-description {
+      font-size: 14px;
+      color: #6b7280;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .service-price {
+      font-size: 16px;
+      font-weight: bold;
+      color: #10b981;
+      text-align: center;
+    }
+
+    .continue-button {
+      width: 100%;
+      background: linear-gradient(135deg, #10b981, #3b82f6);
+      color: white;
+      border: none;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 20px;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .continue-button:active {
+      transform: scale(0.98);
+    }
+
+    .continue-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: #9ca3af;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 12px;
+      color: #374151;
+    }
+
+    .feature-icon-small {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .desktop-link {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(107, 114, 128, 0.2);
+    }
+
+    .desktop-link a {
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .status {
+      text-align: center;
+      margin: 10px 0;
+      font-size: 14px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-container">
+    <div class="header">
+      <div class="logo">VIP Cleaning Squad</div>
+      <div class="subtitle">Professional Cleaning Services</div>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon-small">⭐</div>
+        <div>5-Star Rated</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon-small">⚡</div>
+        <div>Instant Quote</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon-small">🔒</div>
+        <div>Secure Payment</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon-small">📅</div>
+        <div>Easy Booking</div>
+      </div>
+    </div>
+
+    <div class="service-selection">
+      <div class="section-title">Choose Your Service</div>
+      <div class="status" id="status">Tap a service to continue</div>
+
+      <div class="service-cards">
+        <div class="service-card" data-service="residential">
+          <div class="service-icon">🏠</div>
+          <div class="service-title">Residential</div>
+          <div class="service-description">Homes, apartments, condos</div>
+          <div class="service-price">Starting from $89</div>
+        </div>
+
+        <div class="service-card" data-service="commercial">
+          <div class="service-icon">🏢</div>
+          <div class="service-title">Commercial</div>
+          <div class="service-description">Offices, retail, restaurants</div>
+          <div class="service-price">Starting from $0.08/sq ft</div>
+        </div>
+      </div>
+
+      <button class="continue-button" id="continueBtn" disabled>
+        Select a service above
+      </button>
+    </div>
+
+    <div class="desktop-link">
+      <a href="/">Need the full calculator? Switch to desktop version</a>
+    </div>
+  </div>
+
+  <script>
+    let selectedService = null;
+    const status = document.getElementById('status');
+    const continueBtn = document.getElementById('continueBtn');
+    const serviceCards = document.querySelectorAll('.service-card');
+
+    function updateStatus(message) {
+      if (status) status.textContent = message;
+    }
+
+    function selectService(service) {
+      // Remove previous selection
+      serviceCards.forEach(card => card.classList.remove('selected'));
+
+      // Find and select the clicked card
+      const selectedCard = document.querySelector(`[data-service="${service}"]`);
+      if (selectedCard) {
+        selectedCard.classList.add('selected');
+        selectedService = service;
+
+        // Update button
+        continueBtn.disabled = false;
+        continueBtn.textContent = 'Get My Quote →';
+        updateStatus(`${service.charAt(0).toUpperCase() + service.slice(1)} selected`);
+      }
+    }
+
+    function goToCalculator() {
+      if (selectedService) {
+        updateStatus('Redirecting...');
+        window.location.href = `/?service=${selectedService}`;
+      }
+    }
+
+    // Add touch and click events to service cards
+    serviceCards.forEach(card => {
+      const service = card.getAttribute('data-service');
+
+      // Multiple event types for maximum compatibility
+      card.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        selectService(service);
+      });
+
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        selectService(service);
+      });
+    });
+
+    // Continue button event
+    continueBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      goToCalculator();
+    });
+
+    continueBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      goToCalculator();
+    });
+
+    updateStatus('Ready - Tap a service to continue');
+  </script>
+</body>
+</html>

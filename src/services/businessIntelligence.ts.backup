@@ -1,0 +1,349 @@
+}
+
+  private getStoredBookings(): BasicBooking[] {
+    try {
+      const stored = localStorage.getItem('vip_admin_bookings');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private getStoredCustomers(): BasicCustomer[] {
+    try {
+      const stored = localStorage.getItem('vip_customers');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private calculateTotalRevenue(transactions: BasicTransaction[]): number {
+    return transactions
+      .filter(t => t.status === 'completed')
+      .reduce((sum, t) => sum + t.amount, 0);
+  }
+
+  private calculatePeriodRevenue(transactions: BasicTransaction[], period: 'day' | 'week' | 'month'): number {
+    const now = new Date();
+    const startDate = new Date();
+
+    switch (period) {
+      case 'day':
+        startDate.setDate(now.getDate() - 1);
+        break;
+      case 'week':
+        startDate.setDate(now.getDate() - 7);
+        break;
+      case 'month':
+        startDate.setMonth(now.getMonth() - 1);
+        break;
+    }
+
+    return transactions
+      .filter(t => {
+        const transactionDate = new Date(t.createdAt);
+        return transactionDate >= startDate && t.status === 'completed';
+      })
+      .reduce((sum, t) => sum + t.amount, 0);
+  }
+
+  private calculateRevenueGrowth(transactions: BasicTransaction[]): {monthly: number; weekly: number; daily: number} {
+    const currentMonth = this.calculatePeriodRevenue(transactions, 'month');
+    const currentWeek = this.calculatePeriodRevenue(transactions, 'week');
+    const currentDay = this.calculatePeriodRevenue(transactions, 'day');
+
+    // Calculate previous periods (simplified)
+    const previousMonth = currentMonth * 0.9; // Mock data
+    const previousWeek = currentWeek * 0.95;
+    const previousDay = currentDay * 0.98;
+
+    return {
+      monthly: previousMonth > 0 ? ((currentMonth - previousMonth) / previousMonth) * 100 : 0,
+      weekly: previousWeek > 0 ? ((currentWeek - previousWeek) / previousWeek) * 100 : 0,
+      daily: previousDay > 0 ? ((currentDay - previousDay) / previousDay) * 100 : 0
+    };
+  }
+
+  private calculateRevenueByService(transactions: BasicTransaction[]): {residential: number; commercial: number} {
+    return transactions
+      .filter(t => t.status === 'completed')
+      .reduce((acc, t) => {
+        if (t.serviceType === 'residential') {
+          acc.residential += t.amount;
+        } else {
+          acc.commercial += t.amount;
+        }
+        return acc;
+      }, { residential: 0, commercial: 0 });
+  }
+
+  private calculateAverageOrderValue(transactions: BasicTransaction[]): number {
+    const completedTransactions = transactions.filter(t => t.status === 'completed');
+    return completedTransactions.length > 0
+      ? completedTransactions.reduce((sum, t) => sum + t.amount, 0) / completedTransactions.length
+      : 0;
+  }
+
+  private calculateNewCustomers(customers: BasicCustomer[]): number {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    return customers.filter(c => {
+      const createdDate = new Date(c.createdAt || c.registrationDate || '');
+      return createdDate >= thirtyDaysAgo;
+    }).length;
+  }
+
+  private calculateReturningCustomers(customers: BasicCustomer[], bookings: BasicBooking[]): number {
+    return customers.filter(customer => {
+      const customerBookings = bookings.filter(b => b.customerEmail === customer.email);
+      return customerBookings.length > 1;
+    }).length;
+  }
+
+  private calculateRetentionRate(customers: BasicCustomer[], bookings: BasicBooking[]): number {
+    const totalCustomers = customers.length;
+    const returningCustomers = this.calculateReturningCustomers(customers, bookings);
+    return totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0;
+  }
+
+  private calculateAverageCustomerLifetimeValue(customers: BasicCustomer[], transactions: BasicTransaction[]): number {
+    const lifetimeValues = customers.map(customer => {
+      return this.calculateCustomerLifetimeValue(customer, transactions);
+    });
+
+    return lifetimeValues.length > 0
+      ? lifetimeValues.reduce((sum, clv) => sum + clv, 0) / lifetimeValues.length
+      : 0;
+  }
+
+  private calculateCustomerLifetimeValue(customer: BasicCustomer, transactions: BasicTransaction[]): number {
+    const customerTransactions = transactions.filter(t =>
+      t.customerEmail === customer.email && t.status === 'completed'
+    );
+    return customerTransactions.reduce((sum, t) => sum + t.amount, 0);
+  }
+
+  private calculateChurnRate(customers: BasicCustomer[], bookings: BasicBooking[]): number {
+    const ninetyDaysAgo = new Date();
+    ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+
+    const activeCustomers = customers.filter(customer => {
+      const customerBookings = bookings.filter(b => b.customerEmail === customer.email);
+      const recentBookings = customerBookings.filter(b => new Date(b.createdAt) >= ninetyDaysAgo);
+      return recentBookings.length > 0;
+    });
+
+    const churnedCustomers = customers.length - activeCustomers.length;
+    return customers.length > 0 ? (churnedCustomers / customers.length) * 100 : 0;
+  }
+
+  private calculateConversionRate(bookings: BasicBooking[]): number {
+    // Simplified conversion rate calculation
+    const completedBookings = bookings.filter(b => b.status === 'completed').length;
+    const totalBookings = bookings.length;
+    return totalBookings > 0 ? (completedBookings / totalBookings) * 100 : 0;
+  }
+
+  private calculateAverageServiceTime(bookings: BasicBooking[]): number {
+    // Mock calculation - in real implementation, track actual service duration
+    return 2.5; // hours
+  }
+
+  private analyzeServiceAreas(bookings: BasicBooking[], transactions: BasicTransaction[]): ServiceAreaMetrics[] {
+    const areas = [...new Set(bookings.map(b => b.serviceArea))];
+
+    return areas.map(area => {
+      const areaBookings = bookings.filter(b => b.serviceArea === area);
+      const areaTransactions = transactions.filter(t => t.serviceArea === area);
+      const areaRevenue = areaTransactions.reduce((sum, t) => sum + t.amount, 0);
+
+      return {
+        area,
+        totalBookings: areaBookings.length,
+        totalRevenue: areaRevenue,
+        averageOrderValue: areaBookings.length > 0 ? areaRevenue / areaBookings.length : 0,
+        customerSatisfaction: 4.5, // Mock data
+        marketPenetration: Math.random() * 30 + 10, // Mock percentage
+        growthPotential: Math.random() * 40 + 20 // Mock percentage
+      };
+    });
+  }
+
+  private getTopPerformingAreas(bookings: BasicBooking[], transactions: BasicTransaction[]): string[] {
+    const areaMetrics = this.analyzeServiceAreas(bookings, transactions);
+    return areaMetrics
+      .sort((a, b) => b.totalRevenue - a.totalRevenue)
+      .slice(0, 3)
+      .map(area => area.area);
+  }
+
+  private identifyExpansionOpportunities(bookings: BasicBooking[]): string[] {
+    // Simplified expansion opportunity identification
+    const niagaraAreas = [
+      'Beamsville', 'Jordan', 'Vineland', 'Smithville', 'Port Colborne',
+      'Fonthill', 'Fenwick', 'Crystal Beach', 'Ridgeway'
+    ];
+
+    const currentAreas = [...new Set(bookings.map(b => b.serviceArea))];
+    return niagaraAreas.filter(area => !currentAreas.includes(area)).slice(0, 3);
+  }
+
+  private analyzeSeasonalTrends(bookings: BasicBooking[]): SeasonalTrend[] {
+    return [
+      {
+        period: 'Spring (Mar-May)',
+        pattern: 'high',
+        demandMultiplier: 1.3,
+        popularServices: ['Deep Cleaning', 'Move-in Cleaning'],
+        recommendations: ['Increase capacity', 'Promote spring cleaning packages']
+      },
+      {
+        period: 'Summer (Jun-Aug)',
+        pattern: 'medium',
+        demandMultiplier: 1.0,
+        popularServices: ['Standard Cleaning', 'Commercial Cleaning'],
+        recommendations: ['Focus on recurring clients', 'Expand commercial services']
+      },
+      {
+        period: 'Fall (Sep-Nov)',
+        pattern: 'high',
+        demandMultiplier: 1.2,
+        popularServices: ['Deep Cleaning', 'Post-Construction'],
+        recommendations: ['Prepare for holiday season', 'Offer fall packages']
+      },
+      {
+        period: 'Winter (Dec-Feb)',
+        pattern: 'low',
+        demandMultiplier: 0.8,
+        popularServices: ['Holiday Cleaning', 'Commercial Deep Clean'],
+        recommendations: ['Focus on holiday clients', 'Offer winter discounts']
+      }
+    ];
+  }
+
+  private calculateTrendSlope(data: Array<{revenue: number}>): number {
+    if (data.length < 2) return 0;
+
+    const n = data.length;
+    const sumX = data.reduce((sum, _, i) => sum + i, 0);
+    const sumY = data.reduce((sum, item) => sum + item.revenue, 0);
+    const sumXY = data.reduce((sum, item, i) => sum + (i * item.revenue), 0);
+    const sumXX = data.reduce((sum, _, i) => sum + (i * i), 0);
+
+    return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+  }
+
+  private getDemandFactors(date: Date): string[] {
+    const month = date.getMonth();
+    const factors = [];
+
+    if (month >= 2 && month <= 4) factors.push('Spring cleaning season');
+    if (month >= 8 && month <= 10) factors.push('Fall cleaning demand');
+    if (month === 11 || month === 0) factors.push('Holiday cleaning');
+    if (date.getDay() === 5 || date.getDay() === 6) factors.push('Weekend preference');
+
+    return factors;
+  }
+
+  private calculateCustomerAverageOrderValue(transactions: BasicTransaction[]): number {
+    const completedTransactions = transactions.filter(t => t.status === 'completed');
+    return completedTransactions.length > 0
+      ? completedTransactions.reduce((sum, t) => sum + t.amount, 0) / completedTransactions.length
+      : 0;
+  }
+
+  private getLastServiceDate(bookings: BasicBooking[]): string {
+    const completedBookings = bookings
+      .filter(b => b.status === 'completed')
+      .sort((a, b) => new Date(b.serviceDate).getTime() - new Date(a.serviceDate).getTime());
+
+    return completedBookings.length > 0 ? completedBookings[0].serviceDate : 'Never';
+  }
+
+  private predictNextBooking(bookings: BasicBooking[]): string {
+    const completedBookings = bookings.filter(b => b.status === 'completed');
+    if (completedBookings.length < 2) return 'Unknown';
+
+    // Simple prediction based on average time between bookings
+    const intervals = [];
+    for (let i = 1; i < completedBookings.length; i++) {
+      const current = new Date(completedBookings[i].serviceDate);
+      const previous = new Date(completedBookings[i-1].serviceDate);
+      intervals.push(current.getTime() - previous.getTime());
+    }
+
+    const averageInterval = intervals.reduce((sum, interval) => sum + interval, 0) / intervals.length;
+    const lastBooking = new Date(completedBookings[0].serviceDate);
+    const nextBooking = new Date(lastBooking.getTime() + averageInterval);
+
+    return nextBooking.toISOString().split('T')[0];
+  }
+
+  private assessChurnRisk(customer: BasicCustomer, bookings: BasicBooking[]): 'low' | 'medium' | 'high' {
+    const daysSinceLastBooking = this.getDaysSinceLastBooking(bookings);
+
+    if (daysSinceLastBooking < 30) return 'low';
+    if (daysSinceLastBooking < 90) return 'medium';
+    return 'high';
+  }
+
+  private getDaysSinceLastBooking(bookings: BasicBooking[]): number {
+    const completedBookings = bookings.filter(b => b.status === 'completed');
+    if (completedBookings.length === 0) return 999;
+
+    const lastBooking = completedBookings
+      .sort((a, b) => new Date(b.serviceDate).getTime() - new Date(a.serviceDate).getTime())[0];
+
+    const daysDiff = (Date.now() - new Date(lastBooking.serviceDate).getTime()) / (1000 * 60 * 60 * 24);
+    return Math.floor(daysDiff);
+  }
+
+  private getPreferredServices(bookings: BasicBooking[]): string[] {
+    const serviceCount: {[key: string]: number} = {};
+
+    bookings.forEach(booking => {
+      const service = booking.cleaningType || booking.serviceType || 'standard';
+      serviceCount[service] = (serviceCount[service] || 0) + 1;
+    });
+
+    return Object.entries(serviceCount)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 3)
+      .map(([service]) => service);
+  }
+
+  private calculateSatisfactionScore(bookings: BasicBooking[]): number {
+    // Mock satisfaction score based on completed bookings
+    const completedBookings = bookings.filter(b => b.status === 'completed');
+    return completedBookings.length > 0 ? 4.2 + (Math.random() * 0.8) : 0;
+  }
+
+  private assessReferralPotential(customer: BasicCustomer, bookings: BasicBooking[]): number {
+    // Mock referral potential based on satisfaction and loyalty
+    const bookingCount = bookings.filter(b => b.status === 'completed').length;
+    const satisfaction = this.calculateSatisfactionScore(bookings);
+
+    return Math.min(10, (bookingCount * 0.5) + (satisfaction * 1.5));
+  }
+
+  private generateCustomerRecommendations(customer: BasicCustomer, bookings: BasicBooking[]): string[] {
+    const recommendations = [];
+    const daysSinceLastBooking = this.getDaysSinceLastBooking(bookings);
+
+    if (daysSinceLastBooking > 60) {
+      recommendations.push('Send re-engagement offer');
+    }
+
+    if (bookings.length > 3) {
+      recommendations.push('Offer loyalty program enrollment');
+    }
+
+    if (bookings.filter(b => b.frequency !== 'onetime').length === 0) {
+      recommendations.push('Promote recurring service packages');
+    }
+
+    return recommendations;
+  }
+}
